@@ -213,7 +213,6 @@ class scale:
         for i in range(4, 12):
             self.ar_h_min = pow(2, i)
             self.ar_w_min = pow(2, 16 - i)
-            print ("Processor grid: " + str( self.ar_h_min) + " x " + str( self.ar_w_min))
             count = 0
             for weight in range(12, 8, -1):
                 self.fsram_min = pow(2, weight)
@@ -222,6 +221,7 @@ class scale:
                     for output in range(12, 8, -1):
                         self.osram_min = pow(2, output)
                         if self.fsram_min + self.isram_min + self.osram_min < 5 * pow(2, 10):
+                            print ("Processor grid: " + str(self.ar_h_min) + " x " + str(self.ar_w_min))
                             print("Memory:" + str(self.fsram_min) + "-" + str(self.isram_min) + "-" + str(self.osram_min))
                             r.run_net(  ifmap_sram_size  = int(self.isram_min),
                                         filter_sram_size = int(self.fsram_min),
