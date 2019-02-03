@@ -210,16 +210,16 @@ class scale:
         offset_list = [self.ifmap_offset, self.filter_offset, self.ofmap_offset]
         self.topology_file = "../ece8893_lab2.csv"
 
-        for i in range(1, 15):
+        for i in range(4, 12):
             self.ar_h_min = pow(2, i)
             self.ar_w_min = pow(2, 16 - i)
             print ("Processor grid: " + str( self.ar_h_min) + " x " + str( self.ar_w_min))
             count = 0
-            for weight in range(12, 0, -1):
+            for weight in range(12, 8, -1):
                 self.fsram_min = pow(2, weight)
-                for input in range(12, 0, -1):
+                for input in range(12, 8, -1):
                     self.isram_min = pow(2, input)
-                    for output in range(12, 0, -1):
+                    for output in range(12, 8, -1):
                         self.osram_min = pow(2, output)
                         if self.fsram_min + self.isram_min + self.osram_min < 5 * pow(2, 10):
                             print("Memory:" + str(self.fsram_min) + "-" + str(self.isram_min) + "-" + str(self.osram_min))
