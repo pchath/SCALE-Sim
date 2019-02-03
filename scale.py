@@ -210,7 +210,7 @@ class scale:
         offset_list = [self.ifmap_offset, self.filter_offset, self.ofmap_offset]
         self.topology_file = "../ece8893_lab2.csv"
 
-        for i in range(1, 15):
+        for i in range(8, 9):
             self.ar_h_min = pow(2, i)
             self.ar_w_min = pow(2, 16 - i)
             print ("Processor grid: " + str( self.ar_h_min) + " x " + str( self.ar_w_min))
