@@ -215,11 +215,11 @@ class scale:
             self.ar_w_min = pow(2, 16 - i)
             print ("Processor grid: " + str( self.ar_h_min) + " x " + str( self.ar_w_min))
             count = 0
-            for weight in range(0, 12):
+            for weight in range(12, 0, -1):
                 self.fsram_min = pow(2, weight)
-                for input in range(0, 12):
+                for input in range(12, 0, -1):
                     self.isram_min = pow(2, input)
-                    for output in range(0, 12):
+                    for output in range(12, 0, -1):
                         self.osram_min = pow(2, output)
                         if self.fsram_min + self.isram_min + self.osram_min < 5 * pow(2, 10):
                             r.run_net(  ifmap_sram_size  = int(self.isram_min),
