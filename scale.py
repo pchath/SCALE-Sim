@@ -12,9 +12,10 @@ flags.DEFINE_string("network","./topologies/alexnet.csv","topology that we are r
 
 
 class scale:
-    def __init__(self, sweep = False, save = False):
+    def __init__(self, sweep = False, save = False, dse = False):
         self.sweep = sweep
         self.save_space = save
+        self.dse = dse
 
     def parse_config(self):
         general = 'general'
@@ -87,12 +88,16 @@ class scale:
         self.topology_file= FLAGS.network
 
     def run_scale(self):
-        self.parse_config()
-
-        if self.sweep == False:
-            self.run_once()
+        if self.dse == True:
+            self.run_dse()
+            return
         else:
-            self.run_sweep()
+            self.parse_config()
+
+            if self.sweep == False:
+                self.run_once()
+            else:
+                self.run_sweep()
 
 
     def run_once(self):
@@ -193,8 +198,46 @@ class scale:
 
                 self.run_once()
 
+    def run_dse(self):
+
+        self.dataflow = 'ws'
+        df_string = "Weight Stationary"
+        self.ifmap_offset = 0
+        self.filter_offset = 10000000
+        self.ofmap_offset = 20000000
+
+        net_name = "DSE"
+        offset_list = [self.ifmap_offset, self.filter_offset, self.ofmap_offset]
+        self.topology_file = "../ece8893_lab2.csv"
+
+        for i in range(1, 15):
+            self.ar_h_min = pow(2, i)
+            self.ar_w_min = pow(2, 16 - i)
+            print "Processor grid: " + str( self.ar_h_min) + " x " + str( self.ar_w_min)
+            count = 0
+            for weight in range(0, 12):
+                self.fsram_min = pow(2, weight)
+                for input in range(0, 12):
+                    self.isram_min = pow(2, input)
+                    for output in range(0, 12):
+                        self.osram_min = pow(2, output)
+                        if self.fsram_min + self.isram_min + self.osram_min < 5 * pow(2, 10):
+                            r.run_net(  ifmap_sram_size  = int(self.isram_min),
+                                        filter_sram_size = int(self.fsram_min),
+                                        ofmap_sram_size  = int(self.osram_min),
+                                        array_h = int(self.ar_h_min),
+                                        array_w = int(self.ar_w_min),
+                                        net_name = net_name,
+                                        data_flow = self.dataflow,
+                                        topology_file = self.topology_file,
+                                        offset_list = offset_list
+                                    )
+                            exit(0)
+
+        print("************ SCALE SIM DSE Run Complete ****************")
+
 def main(argv):
-    s = scale(save = False, sweep = False)
+    s = scale(save = False, sweep = False, dse = True)
     s.run_scale()
 
 if __name__ == '__main__':
@@ -204,3 +247,5 @@ if __name__ == "__main__":
     s = scale(save = False, sweep = False)
     s.run_scale()
 '''
+
+

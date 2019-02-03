@@ -29,7 +29,7 @@ def gen_all_traces(
     sram_cycles = 0
     util        = 0
 
-    print("Generating traces and bw numbers")
+    #print("Generating traces and bw numbers")
     if data_flow == 'os':
         sram_cycles, util = \
             sram.sram_traffic(
@@ -95,13 +95,14 @@ def gen_all_traces(
         dram_write_trace_file= dram_ofmap_trace_file
     )
 
-    print("Average utilization : \t"  + str(util) + " %")
-    print("Cycles for compute  : \t"  + str(sram_cycles) + " cycles")
+    #print("Average utilization : \t"  + str(util) + " %")
+    #print("Cycles for compute  : \t"  + str(sram_cycles) + " cycles")
     bw_numbers, detailed_log  = gen_bw_numbers(dram_ifmap_trace_file, dram_filter_trace_file,
                                  dram_ofmap_trace_file, sram_write_trace_file,
                                  sram_read_trace_file)
                                  #array_h, array_w)
 
+    print("Data: " + str(sram_cycles) + " " + detailed_log)
     return bw_numbers, detailed_log, util, sram_cycles
 
 
@@ -322,9 +323,9 @@ def gen_bw_numbers( dram_ifmap_trace_file, dram_filter_trace_file,
     #avg_util            = total_util / sram_clk * 100
 
     units = " Bytes/cycle"
-    print("DRAM IFMAP Read BW  : \t" + str(dram_activation_bw) + units)
-    print("DRAM Filter Read BW : \t" + str(dram_filter_bw) + units)
-    print("DRAM OFMAP Write BW : \t" + str(dram_ofmap_bw) + units)
+    #print("DRAM IFMAP Read BW  : \t" + str(dram_activation_bw) + units)
+    #print("DRAM Filter Read BW : \t" + str(dram_filter_bw) + units)
+    #print("DRAM OFMAP Write BW : \t" + str(dram_ofmap_bw) + units)
     #print("Average utilization : \t"  + str(avg_util) + " %")
     #print("SRAM OFMAP Write BW, Min clk, Max clk")
     

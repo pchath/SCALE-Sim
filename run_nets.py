@@ -61,7 +61,7 @@ def run_net( ifmap_sram_size=1,
             continue
 
         name = elems[0]
-        print("")
+        #print("")
         print("Commencing run for " + name)
 
         ifmap_h = int(elems[1])
