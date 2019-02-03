@@ -213,7 +213,7 @@ class scale:
         for i in range(1, 15):
             self.ar_h_min = pow(2, i)
             self.ar_w_min = pow(2, 16 - i)
-            print "Processor grid: " + str( self.ar_h_min) + " x " + str( self.ar_w_min)
+            print ("Processor grid: " + str( self.ar_h_min) + " x " + str( self.ar_w_min))
             count = 0
             for weight in range(0, 12):
                 self.fsram_min = pow(2, weight)
