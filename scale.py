@@ -210,7 +210,7 @@ class scale:
         offset_list = [self.ifmap_offset, self.filter_offset, self.ofmap_offset]
         self.topology_file = "../ece8893_lab2.csv"
 
-        for i in range(8, 9):
+        for i in range(1, 15):
             self.ar_h_min = pow(2, i)
             self.ar_w_min = pow(2, 16 - i)
             print ("Processor grid: " + str( self.ar_h_min) + " x " + str( self.ar_w_min))
@@ -222,6 +222,7 @@ class scale:
                     for output in range(12, 0, -1):
                         self.osram_min = pow(2, output)
                         if self.fsram_min + self.isram_min + self.osram_min < 5 * pow(2, 10):
+                            print("Memory:" + str(self.fsram_min) + "-" + str(self.isram_min) + "-" + str(self.osram_min))
                             r.run_net(  ifmap_sram_size  = int(self.isram_min),
                                         filter_sram_size = int(self.fsram_min),
                                         ofmap_sram_size  = int(self.osram_min),
@@ -232,7 +233,6 @@ class scale:
                                         topology_file = self.topology_file,
                                         offset_list = offset_list
                                     )
-                            exit(0)
 
         print("************ SCALE SIM DSE Run Complete ****************")
 
