@@ -102,7 +102,7 @@ def gen_all_traces(
                                  sram_read_trace_file)
                                  #array_h, array_w)
 
-    print("Data: " + str(sram_cycles) + " " + detailed_log)
+    print("Data: " + str(sram_cycles) + " " + bw_numbers)
     return bw_numbers, detailed_log, util, sram_cycles
 
 
